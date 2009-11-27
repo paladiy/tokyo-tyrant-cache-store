@@ -19,8 +19,11 @@ module ActiveSupport
         record = @data[key_with_namespace(key)]
         data = {}
         unless record.blank?
-          data = Marshal.load(record)
-          delete(key) if data[:expires_in] and data[:expires_in] < Time.now
+          data = Marshal.load(record)          
+          if data[:expires_in] and data[:expires_in] < Time.now
+            delete(key) 
+            data[:data] = nil
+          end
         end
         data[:data]
       end
