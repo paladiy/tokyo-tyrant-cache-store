@@ -17,13 +17,12 @@ module ActiveSupport
       def read(key, options = {})
         super
         record = @data[key_with_namespace(key)]
+        data = {}
         unless record.blank?
           data = Marshal.load(record)
-          delete(key_with_namespace(key)) if data[:expires_in] and data[:expires_in] < Time.now
-          data[:data]
-        else
-          nil
+          delete(key) if data[:expires_in] and data[:expires_in] < Time.now
         end
+        data[:data]
       end
 
       def write(key, data, options = {})
