@@ -1,13 +1,23 @@
-Tokyo-cabinet-cache-store
-=========================
+Tokyo Tyrant Rails Cache Store
+=================
 
-Introduction goes here.
+Requirements
 
+  Tokyo Cabinet:
+  http://1978th.net/tokyocabinet/
 
-Example
-=======
+  Tokyo Tyrant:   
+  http://1978th.net/tokyotyrant/
 
-Example goes here.
+  Gems:  
+  sudo gem install rufus-tokyo
 
+Installation
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+  script/plugin install git://github.com/paladiy/tokyo-tyrant-cache-store.git
+
+Usage
+    
+  Configure the Rails cache store (in environment.rb):
+  config.cache_store = :tokyo_tyrant_cache_store, {:host => '127.0.0.1', :port => 1978, :namespace => "development"} 
+

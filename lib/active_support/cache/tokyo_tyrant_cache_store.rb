@@ -2,7 +2,7 @@
 require 'rufus/tokyo/tyrant'
 module ActiveSupport
   module Cache
-    # A cache store implementation which stores everything into Tokyo Cabinet 
+    # A cache store implementation which stores everything into Tokyo Tyrant 
     # key-value store data base
     class TokyoTyrantCacheStore < Store
       def initialize(options = {})                        
@@ -12,8 +12,6 @@ module ActiveSupport
           :namespace => 'tokyo_tyrant'
         }.merge(options)        
         @data = Rufus::Tokyo::Tyrant.new( @options[:host], @options[:port].to_i)
-        #@data.open(options[:file_path], TokyoCabinet::HDB::OWRITER | TokyoCabinet::HDB::OCREAT)
-        #@data.iterinit
       end
 
       def read(key, options = {})
@@ -31,7 +29,7 @@ module ActiveSupport
       def write(key, data, options = {})
         super
         record = {:data => data}
-        #record[:expires_in] = (Time.now + options[:expires_in] ) unless options[:expires_in].blank?
+        record[:expires_in] = (Time.now + options[:expires_in] ) unless options[:expires_in].blank?
         @data[key_with_namespace(key)] = Marshal.dump(record)
       end
       def keys
