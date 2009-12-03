@@ -30,6 +30,7 @@ module ActiveSupport
 
       def write(key, data, options = {})
         super
+        options = {} if options.nil?
         record = {:data => data}
         record[:expires_in] = (Time.now + options[:expires_in] ) unless options[:expires_in].blank?
         @data[key_with_namespace(key)] = Marshal.dump(record)
