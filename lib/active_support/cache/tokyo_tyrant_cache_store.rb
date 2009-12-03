@@ -44,7 +44,7 @@ module ActiveSupport
 
       def exist?(key,options = {})
         super
-        @data.has_key?(key_with_namespace(key))
+        not @data[key_with_namespace(key)].blank?
       end
       def clear
         @data.clear
